@@ -5,15 +5,19 @@ from routes.agent import router as agent_router
 
 app = FastAPI()
 
-app.include_router(router)
-app.include_router(agent_router)
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite default port
+    allow_origins=[
+        "http://localhost:5173",
+        "https://translator-ai-react-app.vercel.app"
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(router)
+app.include_router(agent_router)
+
 
 @app.get("/")
 def read_root():
